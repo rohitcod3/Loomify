@@ -52,7 +52,12 @@ export const onAuthenticatedUser = async () => {
             WorkSpace:true,
         },
     })
+    if(newUser){
+        return {status: 201, user: newUser}
+    }
+    return {status: 400}
     }catch(error: any){
         console.log(error)
+        return{status:500}
     }
 }
