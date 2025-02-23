@@ -1,15 +1,18 @@
-import { onAuthenticatedUser } from '@/actions/user'
-import { verifyAccessToWorkspace } from '@/actions/workspace'
+import { getNotifications, onAuthenticatedUser } from '@/actions/user'
+import { getAllUserVideos, getWorkspaceFolders, getWorkspaces, verifyAccessToWorkspace } from '@/actions/workspace'
 import { redirect } from 'next/navigation'
 import React from 'react'
 import {dehydrate,HydrationBoundary, QueryClient} from '@tanstack/react-query'
+import Sidebar from '@/components/global/sidebar'
 type Props = {
     params: {workspaceId: string}
     children: React.ReactNode
 }
 
-const Layout = async ({params: {workspaceId}, children}:Props) => {
+const Layout = async (props:Props) => {
     //to make sure the user is logged in
+    const { params, children } = props;
+    const workspaceId = await params.workspaceId;
     const auth = await onAuthenticatedUser()
     //to satisfy typescript errors
     if(!auth.user?.WorkSpace) redirect('/auth/sign-in')
@@ -29,9 +32,25 @@ const Layout = async ({params: {workspaceId}, children}:Props) => {
         queryKey:["workspace-folders"],
         queryFn:() => getWorkspaceFolders(workspaceId),
     })
-  return (
-    <div>Layout</div>
-  )
+    await query.prefetchQuery({
+        queryKey:["user-videos"],
+        queryFn:() => getAllUserVideos(workspaceId),
+    }) 
+     await query.prefetchQuery({
+        queryKey:["user-workspaces"],
+        queryFn:() => getWorkspaces(),
+    }) 
+     await query.prefetchQuery({
+        queryKey:["user-notifications"],
+        queryFn:() => getNotifications(),
+    })
+
+  
+    return <HydrationBoundary state={dehydrate(query)}>
+<div className='flex h-screen w-screen'>
+    <Sidebar actionWorkspaceId={workspaceId}/>
+</div>
+  </HydrationBoundary>
 }
 
 export default Layout
