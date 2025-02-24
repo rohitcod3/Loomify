@@ -11,7 +11,8 @@ type Props = {
 
 const Layout = async (props:Props) => {
     //to make sure the user is logged in
-    const { params, children } = props;
+    const params = await props.params;
+    const{children} = props;
     const workspaceId = await params.workspaceId;
     const auth = await onAuthenticatedUser()
     //to satisfy typescript errors
@@ -48,7 +49,7 @@ const Layout = async (props:Props) => {
   
     return <HydrationBoundary state={dehydrate(query)}>
 <div className='flex h-screen w-screen'>
-    <Sidebar actionWorkspaceId={workspaceId}/>
+    <Sidebar activeWorkspaceId={workspaceId}/>
 </div>
   </HydrationBoundary>
 }
