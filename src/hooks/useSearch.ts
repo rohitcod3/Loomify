@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useUserQueryData } from "./userQueryData"
+import { searchUsers } from "@/actions/user"
 
-export const useSearch = (key:string, type:'WORKSPACE') => {
+export const useSearch = (key:string, type:'USERS') => {
     const [query, setQuery] = useState('')
     const[debounce,setDebounce] = useState("")
     const [onUsers, setOnUsers] = useState<{id: string 
@@ -15,19 +16,31 @@ export const useSearch = (key:string, type:'WORKSPACE') => {
     }[]
     | undefined
     >(undefined)
-
-    const onSearchQuery = (e:React.ChangeEvent<HTMLInputElement>){
+ 
+    const onSearchQuery = (e:React.ChangeEvent<HTMLInputElement>) => {
         setQuery(e.target.value)
     }
 
     useEffect(() => {
-        const deplayInputTimeoutId = setTimeout(() => {setDebounce(query)}, 100)
-        return () => clearTimeout(deplayInputTimeoutId)
+        const delayInputTimeoutId = setTimeout(() => {setDebounce(query)}, 100)
+        return () => clearTimeout(delayInputTimeoutId)
     }, [query])
 
     const {refetch, isFetching} = useUserQueryData([key,debounce], async ({queryKey}) => {
-        if(type === "WORKSPACE"){
-            const workspace =  await searchWorkspace()
+        if(type === "USERS"){
+            const users =  await searchUsers(queryKey[1] as string)
+            if(users.status === 200) setOnUsers(
+                users.data)
         }
-    })
+    },
+    false
+)
+
+useEffect(() =>{
+    if(debounce) refetch()
+        if(!debounce) setOnUsers(undefined)
+        return () =>{
+        debounce}
+},[debounce])
+return {onSearchQuery, query,isFetching, onUsers}
 }

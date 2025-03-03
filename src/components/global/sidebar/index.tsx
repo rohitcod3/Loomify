@@ -9,15 +9,21 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import Modal from '../modal'
+import Search from '../search'
 
 type Props = {
     activeWorkspaceId: string
 }
 
+//activeWorkspaceId comes from /dashboard/[workspaceId]/layout.tsx
 const Sidebar = ({activeWorkspaceId}: Props) => {
     const router = useRouter()
     
+
+    //
     const {data,isFetched} = useUserQueryData(["user-workspaces"], getWorkspaces)
+
+
     const {data:workspace} = data as WorkspaceProps
     console.log(workspace)
     const onChangeActiveWorkspace = (value : string) => {
@@ -33,7 +39,7 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
         <p className='text-2xl text-white'>Loomify</p>
         </div>
         <Select  
-        defaultValue={activeWorkspaceId}
+        defaultValue="{activeWorkspaceId}"
         onValueChange={onChangeActiveWorkspace} >
             <SelectTrigger className='mt-4 text-neutral-400 bg-transparent'>
                 <SelectValue placeholder="Select a workspace"></SelectValue>
@@ -63,7 +69,7 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
     </span>}
     description="Invite other users to your workspace"
     >
-        WorkspaceSearch
+       <Search workspaceId={activeWorkspaceId}/>
     </Modal>
     </div>
   )

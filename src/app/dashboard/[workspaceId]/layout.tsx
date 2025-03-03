@@ -14,6 +14,7 @@ const Layout = async (props:Props) => {
     const params = await props.params;
     const{children} = props;
     const workspaceId = await params.workspaceId;
+    console.log('workspace id after callback', workspaceId)
     const auth = await onAuthenticatedUser()
     //to satisfy typescript errors
     if(!auth.user?.WorkSpace) redirect('/auth/sign-in')

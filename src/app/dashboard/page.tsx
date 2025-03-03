@@ -8,6 +8,7 @@ const DashboardPage = async (props: Props) => {
   //authentication
   const auth = await onAuthenticatedUser();
 
+  //we write 200 or 201, to check if the user is newly created or if the user already exists, in either cases we redirect the user to their specific dashboard
   if(auth.status === 200 || auth.status === 201){
     return redirect(`/dashboard/${auth.user?.workspace[0].id}}`)
   }
