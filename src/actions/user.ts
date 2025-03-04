@@ -7,9 +7,11 @@ import { client } from "@/lib/prisma"
 export const onAuthenticatedUser = async () => {
     try{
     const user = await currentUser()
+    // console.log('Current User: ', user);
     if(!user){
         return {status: 403}
     }
+
 
     const userExists = await client.user.findUnique({
         where:{
@@ -25,6 +27,7 @@ export const onAuthenticatedUser = async () => {
            },
         },
     })
+    // console.log("USER EXITS",userExists);
     if(userExists){
         return{status: 200, user:userExists}
     }
@@ -91,7 +94,7 @@ export const getNotifications = async() => {
  } 
 
  export const searchUsers = async (query:string) => {
-  try{
+  try{z=z
   const user = await currentUser();
   if(!user) return {status:404}
 

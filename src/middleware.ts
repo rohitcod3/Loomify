@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher([
   '/dashboard(.*)', 
@@ -7,15 +8,20 @@ const isProtectedRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
+  const url = new URL(req.url);
+  // Exclude the auth callback route from middleware processing
+  if (url.pathname.startsWith('/auth/callback')) {
+    return NextResponse.next();
+  }
+  
   if (isProtectedRoute(req)) {
-    // Await the auth object
     const { sessionId } = await auth();
-    // Check if sessionId exists
     if (!sessionId) {
-      // Return a response or redirect as needed
       return new Response("Unauthorized", { status: 401 });
     }
   }
+  
+  return NextResponse.next();
 });
   
 export const config = {
