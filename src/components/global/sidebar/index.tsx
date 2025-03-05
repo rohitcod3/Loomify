@@ -14,6 +14,9 @@ import { MENU_ITEMS } from '@/constants'
 import { getNotifications } from '@/actions/user'
 import SidebarItem from './sidebar-items'
 import WorkspacePlaceholder from './workspace-placeholder'
+import GlobalCard from '../global-card'
+import { Button } from '@/components/ui/button'
+import Loader from '../loader'
 
 type Props = {
     activeWorkspaceId: string
@@ -109,9 +112,18 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
     </nav>
     <Separator className='w-4/5 '/>
     <p className='w-full  text-[#9d9d9d] font-bold mt-4'>Workspaces</p>
+    {workspace.WorkSpace?.length === 1 &&
+            workspace.members.length === 0 && (
+            <div className='w-full mt-[-10px]'>
+                <p className='text-[#3c3c3c] font-medium text-sm'>
+                    {workspace.subscription?.plan === 'FREE' ? 'Upgrade to create workspaces' : 'No workspaces'}
+                    </p>
+            </div>
+            )
+            }
     <nav className='w-full'>
         <ul className='h-[150px] overflow-auto overflow-x-hidden fade-layer '>
-            {workspace?.WorkSpace?.length > 0 && workspace?.WorkSpace?.map((item)=> 
+            {workspace?.WorkSpace?.length > 0 && workspace?.member?.map((item)=> 
             (
            
             <SidebarItem
@@ -129,9 +141,21 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
             />
             
             ))}
-            
+          
         </ul>
     </nav>
+    <Separator className='w-4/5'/>
+    {workspace.subscription?.plan === 'FREE' && <GlobalCard
+    title="Upgrade to pro"
+    description='Unlock AI features like transcription, AI summary, and more.'
+    footer={
+        <Button className='text-sm'>
+        <Loader>Upgrade</Loader>
+    </Button>
+    }
+    >
+      
+    </GlobalCard>}
     </div>
   )
 }

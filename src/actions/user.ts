@@ -4,6 +4,8 @@ import { currentUser } from "@clerk/nextjs/server"
 import { client } from "@/lib/prisma"
 
 
+
+
 export const onAuthenticatedUser = async () => {
     try{
     const user = await currentUser()
@@ -65,6 +67,7 @@ export const onAuthenticatedUser = async () => {
     }
 }
 
+
 export const getNotifications = async() => {
     try{
      const user = await currentUser();
@@ -94,7 +97,7 @@ export const getNotifications = async() => {
  } 
 
  export const searchUsers = async (query:string) => {
-  try{z=z
+  try{
   const user = await currentUser();
   if(!user) return {status:404}
 
