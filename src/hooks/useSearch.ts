@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useUserQueryData } from "./userQueryData"
 import { searchUsers } from "@/actions/user"
+import { getWorkspaceFolders, getWorkspaces } from "@/actions/workspace"
 
-export const useSearch = (key:string, type:'USERS') => {
+export const useSearch =  (key:string, type:'USERS' | "WORKSPACE" | "FOLDERS") => {
     const [query, setQuery] = useState('')
     const[debounce,setDebounce] = useState("")
     const [onUsers, setOnUsers] = useState<{id: string 
@@ -16,7 +17,11 @@ export const useSearch = (key:string, type:'USERS') => {
     }[]
     | undefined
     >(undefined)
- 
+    const [workspaceId, setWorkspaceId] = useState("")
+    const[results, setResults] = useState<[] | undefined>(undefined)
+  
+
+
     const onSearchQuery = (e:React.ChangeEvent<HTMLInputElement>) => {
         setQuery(e.target.value)
     }
@@ -26,15 +31,36 @@ export const useSearch = (key:string, type:'USERS') => {
         return () => clearTimeout(delayInputTimeoutId)
     }, [query])
 
+    useEffect(() => {
+        if (type !== 'FOLDERS') setWorkspaceId('');
+      }, [type]);
+      
     const {refetch, isFetching} = useUserQueryData([key,debounce], async ({queryKey}) => {
         if(type === "USERS"){
             const users =  await searchUsers(queryKey[1] as string)
             if(users.status === 200) setOnUsers(
                 users.data)
+        }else if(type === "WORKSPACE"){
+            const workspaces = await getWorkspaces();
+            if(workspaces?.status === 200) setResults(workspaces?.data);
+         
+        }else if(type === "FOLDERS"){
+            let currentWorkspaceId = workspaceId;
+
+            if(!currentWorkspaceId){
+                const workspace = await getWorkspaceFolders(currentWorkspaceId);
+                currentWorkspaceId = workspace?.data?.WorkSpace?.id || '';
+                setWorkspaceId(currentWorkspaceId)
+            }
+
+            const folders = await getWorkspaceFolders(currentWorkspaceId);
+            if(folders?.status ===  200) setResults(folders?.data)
         }
     },
     false
 )
+
+
 
 useEffect(() =>{
     if(debounce) refetch()
@@ -42,5 +68,5 @@ useEffect(() =>{
         return () =>{
         debounce}
 },[debounce])
-return {onSearchQuery, query,isFetching, onUsers}
+return {onSearchQuery, query,isFetching, onUsers, results}
 }

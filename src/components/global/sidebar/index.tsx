@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Separator } from '@/components/ui/separator'
 import { useUserQueryData } from '@/hooks/userQueryData'
 import { NotificationProps, WorkspaceProps } from '@/types/index.type'
-import { MountainIcon, PlusCircle } from 'lucide-react'
+import { Menu, MountainIcon, PlusCircle } from 'lucide-react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
@@ -17,6 +17,8 @@ import WorkspacePlaceholder from './workspace-placeholder'
 import GlobalCard from '../global-card'
 import { Button } from '@/components/ui/button'
 import Loader from '../loader'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import InfoBar from '../info-bar'
 
 type Props = {
     activeWorkspaceId: string
@@ -47,7 +49,8 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
     
 
     console.log("this is the workspace id in sidebar component",activeWorkspaceId)
-  return (
+
+    const SidebarSection =  (
     <div className='bg-[#111111] flex-none gap-4 relative p-4 h-full w-[250px] flex flex-col items-center overflow-hidden'>
         <div className='bg-[#111111] p-4 flex gap-2 justify-center items-center mb-1 top-0 left-0 right-0'>
         <MountainIcon
@@ -158,6 +161,32 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
     </GlobalCard>}
     </div>
   )
+  return( <div className='full'>
+    <InfoBar/>
+    <div className='md:hidden fixed my-4'>
+    <Sheet>
+        <SheetTrigger
+        asChild
+        className='ml-2'
+        >
+        <Button variant={"ghost"} 
+        className='mt-[2px]'
+        >
+        <Menu/>
+        </Button>
+        </SheetTrigger>
+        <SheetContent side={'left'} className='h-full w-fit p-0'>
+            {SidebarSection}
+        </SheetContent>
+    </Sheet>
+    </div>
+
+    <div className='md:block hidden h-full'>
+    {SidebarSection}
+    </div>
+    </div>
+    )
+
 }
 
 export default Sidebar
