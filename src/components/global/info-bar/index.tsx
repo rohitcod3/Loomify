@@ -37,7 +37,7 @@ const InfoBar = (props: Props) => {
         </div>
       </header>
 
-      <div className='absolute  right-10 top-10 text-4xl'>
+      {/* <div className='absolute  right-10 top-10 text-4xl'>
         {isFetching && <p>Loading...</p>}
         {true ? (
           <div className='flex flex-col a'>
@@ -50,7 +50,7 @@ const InfoBar = (props: Props) => {
         ) : (
           <p>No workspaces found.</p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
