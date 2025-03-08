@@ -2,7 +2,7 @@
 import { getWorkspaces } from '@/actions/workspace'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
-import { useUserQueryData } from '@/hooks/userQueryData'
+import { useQueryData } from '@/hooks/useQueryData'
 import { NotificationProps, WorkspaceProps } from '@/types/index.type'
 import { Menu, MountainIcon, PlusCircle } from 'lucide-react'
 import Image from 'next/image'
@@ -30,11 +30,11 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
     const pathName = usePathname()
 
     //
-    const {data,isFetched} = useUserQueryData(["user-workspaces"], getWorkspaces)
+    const {data,isFetched} = useQueryData(["user-workspaces"], getWorkspaces)
 
     const menuItems = MENU_ITEMS(activeWorkspaceId)
     console.log("Rendering sidebar with menu items", MENU_ITEMS(activeWorkspaceId));
-    const{data: notifications} = useUserQueryData(["user-notifications"], getNotifications)
+    const{data: notifications} = useQueryData(["user-notifications"], getNotifications)
 
     const {data:workspace} = data as WorkspaceProps
 

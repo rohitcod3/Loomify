@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useUserQueryData } from "./userQueryData"
+import { useQueryData } from "./useQueryData"
 import { searchUsers } from "@/actions/user"
 import { getWorkspaceFolders, getWorkspaces } from "@/actions/workspace"
 
@@ -35,7 +35,7 @@ export const useSearch =  (key:string, type:'USERS' | "WORKSPACE" | "FOLDERS") =
         if (type !== 'FOLDERS') setWorkspaceId('');
       }, [type]);
       
-    const {refetch, isFetching} = useUserQueryData([key,debounce], async ({queryKey}) => {
+    const {refetch, isFetching} = useQueryData([key,debounce], async ({queryKey}) => {
         if(type === "USERS"){
             const users =  await searchUsers(queryKey[1] as string)
             if(users.status === 200) setOnUsers(
