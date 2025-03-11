@@ -62,7 +62,7 @@ export const onAuthenticatedUser = async () => {
     }
     return {status: 400}
     }catch(error: any){
-        console.log(error)
+        // console.log(error)
         return{status:500}
     }
 }

@@ -1,5 +1,7 @@
+import CreateFolders from '@/components/global/create-folders'
 import CreateWorkspace from '@/components/global/create-workspace'
-import { Tabs, TabsList } from '@/components/ui/tabs'
+import Folders from '@/components/global/folders'
+import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs'
 import { TabsTrigger } from '@radix-ui/react-tabs'
 import React from 'react'
 
@@ -21,12 +23,19 @@ const Page = ({params}: Props) => {
           <TabsTrigger
           className='p-[13px] px-6 rounded-full data-[state=active]:bg-[#252525]'
           value="archive"
-          >Archive</TabsTrigger>
+          >Archive
+          </TabsTrigger>
          </TabsList>
          <div className='flex gap-x-3'>
-          <CreateWorkspace/>
+          <CreateWorkspace />
+          <CreateFolders workspaceId={params.worksapceId}/>
          </div>
         </div>
+        <section className='py-9'>
+          <TabsContent value="videos">
+            <Folders workspaceId ={params.worksapceId}/>
+          </TabsContent>
+        </section>
       </Tabs>
     </div>
   )

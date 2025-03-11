@@ -3,6 +3,7 @@ import { Label } from '@/components/ui/label'
 import React from 'react'
 import { FieldErrors,FieldValues, UseFormRegister } from 'react-hook-form'
 import {ErrorMessage} from '@hookform/error-message'
+import { Textarea } from '@/components/ui/textarea'
 type Props = {
     type? : 'text' | 'email' | 'password' | 'number'
     inputType: 'select' | 'input' | 'textarea' 
@@ -52,7 +53,7 @@ const FormGenerator = ({
              />
             </Label>
             )
-            case 'select':
+        case 'select':
                 return(
                     <Label
             className='flex flex-col gap-2 '
@@ -86,8 +87,37 @@ const FormGenerator = ({
              />
              
             </Label>
-                )
-            
+            )
+        case 'textarea':
+                return(
+            <Label
+            className='flex flex-col gap-2 '
+            htmlFor={`input-${label}`}
+            >
+            {label && label}
+            <Textarea
+            id={`input-${label}`}
+            className='bg-transparent border-themeGray text-themeTextGray'
+            rows={lines}
+            placeholder={placeholder}
+             {...register(name)}
+            />
+    
+        
+    
+           <ErrorMessage
+            errors={errors}
+            name={name}
+            render={({message}) => (
+            <p className='text-red-400 mt-2'>
+             {message === 'Required' ? '' : message}
+            </p>
+                  )}
+            />
+                 
+                 
+            </Label>
+                    )
             default:
                 break;
     }
