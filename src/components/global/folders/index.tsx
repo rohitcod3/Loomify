@@ -1,14 +1,21 @@
+'use client'
 import { cn } from '@/lib/utils'
 import { ArrowRight, Folder } from 'lucide-react'
 import React from 'react'
 import Folder1 from './folder'
+import { useQueryData } from '@/hooks/useQueryData'
+import { getWorkspaceFolders } from '@/actions/workspace'
 type Props = {
     workspaceId: string
 }
 
-const Folders = (props: Props) => {
+const Folders = ({workspaceId}: Props) => {
     //getting all the folders
-    
+    const {} = useQueryData(["workspace-folders"], () => getWorkspaceFolders(workspaceId))
+
+    const {} = useMutationDataState()
+
+
   return (<div className='flex flex-col gap-4'>
     <div className='flex items-center justify-between'>
         <div className='flex items-center gap-4'>
