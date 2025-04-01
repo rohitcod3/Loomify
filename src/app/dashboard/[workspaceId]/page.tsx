@@ -6,34 +6,36 @@ import { TabsTrigger } from '@radix-ui/react-tabs'
 import React from 'react'
 
 type Props = {
-  params:{worksapceId: string}
+  params:{workspaceId: string}
 }
 
-const Page = ({params}: Props) => {
+const Page = ({ params }: Props) => {
   return (
     <div>
-      <Tabs defaultValue='videos' className='mt-6'
-      >
-        <div className='flex w-full  justify-between items-center'>
-         <TabsList className='bg-transparent gap-2 pl-0'>
-          <TabsTrigger className='p-[13px] px-6 rounded-full data-[state=active]:bg-[#252525]
-          '
-          value='videos'
-          >Videos</TabsTrigger>
-          <TabsTrigger
-          className='p-[13px] px-6 rounded-full data-[state=active]:bg-[#252525]'
-          value="archive"
-          >Archive
-          </TabsTrigger>
-         </TabsList>
-         <div className='flex gap-x-3'>
-          <CreateWorkspace />
-          <CreateFolders workspaceId={params.worksapceId}/>
-         </div>
+      <Tabs defaultValue="videos" className="mt-6">
+        <div className="flex w-full justify-between items-center">
+          <TabsList className="bg-transparent gap-2 pl-0">
+            <TabsTrigger
+              className="p-[13px] px-6 rounded-full data-[state=active]:bg-[#252525]"
+              value="videos"
+            >
+              Videos
+            </TabsTrigger>
+            <TabsTrigger
+              className="p-[13px] px-6 rounded-full data-[state=active]:bg-[#252525]"
+              value="archive"
+            >
+              Archive
+            </TabsTrigger>
+          </TabsList>
+          <div className="flex gap-x-3">
+            <CreateWorkspace />
+            <CreateFolders workspaceId={params.workspaceId} /> 
+          </div>
         </div>
-        <section className='py-9'>
+        <section className="py-9">
           <TabsContent value="videos">
-            <Folders workspaceId ={params.worksapceId}/>
+            <Folders workspaceId={params.workspaceId} />
           </TabsContent>
         </section>
       </Tabs>

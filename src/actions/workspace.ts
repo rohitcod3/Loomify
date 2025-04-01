@@ -216,3 +216,34 @@ export const renameFolders = async (folderId: string, name: string) => {
     return {status: 500, data: 'Opps! Something went wrong'}
     }
 } 
+
+
+export const createFolder = async (
+  workspaceId: string,
+  newFolder: { name: string; id: string }
+) => {
+  console.log("Incoming to createFolder:", newFolder)
+
+  if (!newFolder) {
+    console.error("newFolder is undefined!")
+    throw new Error("Missing folder data")
+  }
+
+  try {
+    const result = await client.workSpace.update({
+      where: { id: workspaceId },
+      data: {
+        folders: {
+          create: {
+            name: newFolder.name,
+          },
+        },
+      },
+    })
+
+    return { status: 200, message: "Folder created" }
+  } catch (error) {
+    console.error("Error creating folder:", error)
+    return { status: 500, message: "Something went wrong" }
+  }
+}
