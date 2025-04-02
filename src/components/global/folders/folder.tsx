@@ -25,7 +25,7 @@ const Folder1 = ({id, name,optimistic,count}: Props) => {
     const Renamed = () => setOnRename(false)
 
     const {mutate, isPending} = useMutationData(["rename-folders"], 
-      (data:{name:string}) => renameFolders(id,name), 
+      (data:{name:string}) => renameFolders(id,data.name), 
     'workspace-folders',
      Renamed
 )
