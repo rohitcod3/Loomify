@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { usePathname, useRouter } from 'next/navigation'
 import Loader from '../loader'
 import { Folder } from 'lucide-react'
-import { useMutationData } from '@/hooks/useMutationData'
+import { useMutationData, useMutationDataState } from '@/hooks/useMutationData'
 import { renameFolders } from '@/actions/workspace'
 import { Input } from '@/components/ui/input'
 type Props = {
@@ -30,6 +30,8 @@ const Folder1 = ({id, name,optimistic,count}: Props) => {
      Renamed
 )
 
+const {latestVariables} = useMutationDataState(['rename-folders'])
+
     const handleFolderClick = () => {
       if(onRename) return
       router.push(`${pathName}/folder/${id}`)
@@ -46,7 +48,7 @@ const Folder1 = ({id, name,optimistic,count}: Props) => {
         if(!inputRef.current.contains(e.target as Node | null) && !folderCardRef.current.contains(e.target as Node | null))
           {
           if(inputRef.current.value){
-            mutate({name:inputRef.current.value})
+            mutate({name:inputRef.current.value , id})
           }else{
             Renamed()
           }
@@ -76,7 +78,9 @@ const Folder1 = ({id, name,optimistic,count}: Props) => {
             className='text-neutral-300'
             onDoubleClick={handleNameDoubleClick}
             >
-              {name}
+              {latestVariables && latestVariables.status === 'pending' &&
+              latestVariables.variable.id === id ? latestVariables.variable.name : name
+              }
               </p>
           )}
          <span className='text-sm text-neutral-500 '>{count || 0 } videos</span>
