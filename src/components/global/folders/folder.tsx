@@ -43,18 +43,16 @@ const {latestVariables} = useMutationDataState(['rename-folders'])
     Rename();
     }
 
-    const updateFolderName = (e:React.FocusEvent<HTMLInputElement>) => {
-      if(inputRef.current && folderCardRef.current){
-        if(!inputRef.current.contains(e.target as Node | null) && !folderCardRef.current.contains(e.target as Node | null))
-          {
-          if(inputRef.current.value){
-            mutate({name:inputRef.current.value , id})
-          }else{
-            Renamed()
-          }
-        }
+    const updateFolderName = (e: React.FocusEvent<HTMLInputElement>) => {
+      const newName = inputRef.current?.value;
+      // For example, assume you have the original name in a state variable 'name'
+      if (newName && newName !== name) {
+        mutate({ name: newName, id });
+      } else {
+        Renamed();
       }
-    }
+    };
+    
   return (
     <div 
     onClick={handleFolderClick}

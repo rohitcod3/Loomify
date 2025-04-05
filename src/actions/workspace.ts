@@ -197,27 +197,27 @@ export const createWorkspace = async (name: string) => {
     }
 }
 
-
 export const renameFolders = async (folderId: string, name: string) => {
     try {
       const folder = await client.folder.update({
         where: { id: folderId },
         data: { name },
-      })
-  
+      });
+      console.log("Updated folder:", folder); // Check if this shows the new name
       return {
         status: 200,
         message: "Folder renamed successfully",
         data: folder,
-      }
+      };
     } catch (error) {
-      console.error("Rename error:", error)
+      console.error("Rename error:", error);
       return {
         status: 500,
         message: "Oops! Something went wrong",
-      }
+      };
     }
-  }
+  };
+  
   
 
 

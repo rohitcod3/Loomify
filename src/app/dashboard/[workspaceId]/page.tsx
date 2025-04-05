@@ -9,7 +9,7 @@ type Props = {
   params:{workspaceId: string}
 }
 
-const Page = ({ params }: Props) => {
+export default async function Page ({ params }: Props) {
   return (
     <div>
       <Tabs defaultValue="videos" className="mt-6">
@@ -43,4 +43,3 @@ const Page = ({ params }: Props) => {
   )
 }
 
-export default Page
