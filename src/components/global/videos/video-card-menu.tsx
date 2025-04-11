@@ -35,7 +35,7 @@ function CardMenu({
     currentWorkSpace={currentWorkspace}
     currentFolderName={currentFolderName}
     videoId={videoId}
-    >
+    />
    </Modal>
   )
 }

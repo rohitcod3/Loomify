@@ -4,6 +4,7 @@ import { Manrope } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme";
 import ReactQueryProvider from "@/react-query";
+import { ReduxProvider } from "@/redux/provider";
 const manrope = Manrope({subsets: ['latin']})
 
 export const metadata: Metadata = {
@@ -29,7 +30,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <ReduxProvider>
+
             <ReactQueryProvider>{children}</ReactQueryProvider>
+            </ReduxProvider>
           </ThemeProvider>
        
       </body>

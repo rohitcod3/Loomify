@@ -13,23 +13,7 @@ type Props = {
     workspaceId: string
 }
 
-const video = {
-    User: {
-      firstname: "Rohit",
-      lastname: "Kumar",
-      image: "https://randomuser.me/api/portraits/men/75.jpg",
-    },
-    id: "video_1",
-    Folder: {
-      id: "folder_1",
-      name: "Tutorials",
-    },
-    createdAt: new Date("2025-04-07T10:00:00Z"),
-    title: "Learn Next.js Basics",
-    source: "https://example.com/videos/nextjs-basics.mp4",
-    processing: false,
-    workspaceId: "workspace_1",
-  }
+
 
 function Videos({folderId, videosKey, workspaceId}: Props) {
     const {data: videoData} = useQueryData([videosKey], ()=> getAllUserVideos(folderId))
@@ -43,15 +27,26 @@ function Videos({folderId, videosKey, workspaceId}: Props) {
 
             </h2>
         </div>
-        <section className={cn(videosStatus !== 200 ? 'p-5' :'grid grid-cols-1 gap-10 md: grid-cols2 lg:grid-cols-3 xl:grid:cols-4 2xl:grid-cols-5' )}
+        <section className={cn(
+          videosStatus !== 200 ? 
+          'p-5' 
+           : 'grid grid-cols-1 gap-10 md: grid-cols2 lg:grid-cols-3 xl:grid:cols-4 2xl:grid-cols-5' )}
         >
   
-        {/* {videosStatus === 200 ? videos.map((video) => <VideoCard/>) : 
-        <p className='text-[#BDBDBD]'>No Videos in workspace</p>
-        } */}
-        
-        <VideoCard {...video}
+        {videosStatus === 200 ? (
+        videos.map((video) => (
+        <VideoCard 
+        key={video.id}
+        workspaceId={workspaceId}
+        {...video}
         />
+      ))
+   ) : 
+       ( 
+       <p className='text-[#BDBDBD]'>No Videos in workspace</p>
+        )}
+        
+        
 
         </section>
     </div>

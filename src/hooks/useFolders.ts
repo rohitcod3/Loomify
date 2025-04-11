@@ -4,6 +4,7 @@ import { useMutationData } from "./useMutationData"
 import { getWorkspaceFolders, moveVideoLocation } from "@/actions/workspace"
 import useZodForm from "./useZodForm"
 import { moveVideoSchema } from "@/components/forms/change-video-location/schema"
+import { isPagesAPIRouteMatch } from "next/dist/server/route-matches/pages-api-route-match"
 
 export const  useMoveVideos = (videoId: string, currentWorkspace: string)=>{
     const {folders} = useAppSelector((state) => state.FolderReducer)
@@ -44,15 +45,23 @@ useEffect(() => {
 
 
 useEffect(()=> {
-    const workspace = watch(async(value => {
+    const workspace = watch(async(value) => {
         if(value.workspace._id) fetchFolders(value.workspace_id)
     })
 
-return () => workspace.uusubscribe();
-)
+return () => workspace.unsubscribe();
+
 }, [watch])
 
-
+return{
+    onFormSubmit,
+    isPending,
+    folders,
+    workspaces,
+    isFetching,
+    isFolders,
+    register,
+}
 
 
 }
