@@ -75,7 +75,7 @@ function VideoCard( props: Props) {
                 <p className='capitalize text-[#] text-sm'>{props.User?.firstname} {props.User?.lastname}
                 </p>
                 <p className='text-[#707070] text-xs flex items-center'>
-                <Dot/>  {daysAgo === 0 ? 'Today' : `${daysAgo}d ago`}
+                <Dot/>  {daysAgo === 0 ? 'Today' : `${daysAgo}d Ago`}
                 </p>
               </div>  
             </div>
