@@ -30,6 +30,7 @@ const {
 
 const folder = folders.find((f) => f.id == currentFolder)
 const workspace = workspaces.find((f) => f.id === currentWorkSpace)
+console.log("workspace array in changevideolocation component", workspaces)
 
   return (
    <form className='flex flex-col gap-y-5'>

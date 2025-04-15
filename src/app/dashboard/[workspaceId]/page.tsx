@@ -10,6 +10,7 @@ type Props = {
 }
 
 export default async function Page ({ params }: Props) {
+  const { workspaceId } = params;
   return (
     <div>
       <Tabs defaultValue="videos" className="mt-6">
@@ -30,12 +31,12 @@ export default async function Page ({ params }: Props) {
           </TabsList>
           <div className="flex gap-x-3">
             <CreateWorkspace />
-            <CreateFolders workspaceId={params.workspaceId} /> 
+            <CreateFolders workspaceId={workspaceId} /> 
           </div>
         </div>
         <section className="py-9">
           <TabsContent value="videos">
-            <Folders workspaceId={params.workspaceId} />
+            <Folders workspaceId={workspaceId} />
           </TabsContent>
         </section>
       </Tabs>

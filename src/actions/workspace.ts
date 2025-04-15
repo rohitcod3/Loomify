@@ -263,6 +263,7 @@ const folder = await client.folder.findUnique({
     },
     select:{
         name: true,
+        workSpaceId:true,
         _count:{
             select: {videos:true}
         }

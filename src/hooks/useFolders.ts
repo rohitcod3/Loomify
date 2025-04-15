@@ -10,7 +10,9 @@ export const  useMoveVideos = (videoId: string, currentWorkspace: string)=>{
     const {folders} = useAppSelector((state) => state.FolderReducer)
     const {workspaces} = useAppSelector((state) => state.WorkspaceReducer)
 
-
+    console.log("Redux workspaces:", workspaces)
+    console.log("Redux folders:", folders)
+    
     const  [isFetching, setIsFetching] = useState(false);
     const [isFolders, setIsFolders] = useState<
     |({
@@ -37,6 +39,7 @@ const fetchFolders = async(workspace:string) => {
     setIsFetching(true)
     const folders  = await getWorkspaceFolders(workspace)
     setIsFetching (false)
+    console.log("FOLDERS DOT DATA",folders.data)
     setIsFolders(folders.data)
 }
 useEffect(() => {

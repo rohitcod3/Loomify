@@ -19,7 +19,8 @@ import { Button } from '@/components/ui/button'
 import Loader from '../loader'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import InfoBar from '../info-bar'
-
+import { useDispatch } from 'react-redux'
+import { WORKSPACES } from '@/redux/slices/workspaces' 
 type Props = {
     activeWorkspaceId: string
 }
@@ -28,7 +29,7 @@ type Props = {
 const Sidebar = ({activeWorkspaceId}: Props) => {
     const router = useRouter()
     const pathName = usePathname()
-
+    const dispatch = useDispatch()
     //
     const {data,isFetched} = useQueryData(["user-workspaces"], getWorkspaces)
 
@@ -46,7 +47,11 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
     }
     const currentWorkspace = workspace?.workspace?.find((s)=> s.id === activeWorkspaceId)
 
-    
+     
+    if(isFetched && workspace){
+      dispatch(WORKSPACES({workspaces: workspace.workspace}))
+    }
+
 
     console.log("this is the workspace id in sidebar component",activeWorkspaceId)
 
