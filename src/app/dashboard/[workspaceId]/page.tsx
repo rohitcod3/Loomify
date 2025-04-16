@@ -3,6 +3,7 @@ import CreateWorkspace from '@/components/global/create-workspace'
 import Folders from '@/components/global/folders'
 import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs'
 import { TabsTrigger } from '@radix-ui/react-tabs'
+import { Video } from 'lucide-react'
 import React from 'react'
 
 type Props = {
@@ -10,7 +11,8 @@ type Props = {
 }
 
 export default async function Page ({ params }: Props) {
-  const { workspaceId } = params;
+  const awaitedParams = await params;
+  const {workspaceId} = awaitedParams;
   return (
     <div>
       <Tabs defaultValue="videos" className="mt-6">
@@ -34,11 +36,21 @@ export default async function Page ({ params }: Props) {
             <CreateFolders workspaceId={workspaceId} /> 
           </div>
         </div>
+
         <section className="py-9">
           <TabsContent value="videos">
             <Folders workspaceId={workspaceId} />
           </TabsContent>
         </section>
+
+        <section>
+        <TabsContent value='videos'>
+        <div className='flex items-center gap-4'>
+          <Video fill='#fff' className='opacity-50'/>
+          <p>Videos</p>
+        </div>
+        </TabsContent>
+        </section>        
       </Tabs>
     </div>
   )

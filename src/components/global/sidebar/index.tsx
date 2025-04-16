@@ -49,9 +49,9 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
 
      
     if(isFetched && workspace){
-      dispatch(WORKSPACES({workspaces: workspace.workspace}))
+      dispatch(WORKSPACES({workspaces: workspace?.WorkSpace}))
     }
-
+    console.log("Checking WORKSPACE IN CHANGE VIDEO FOLDER", workspace?.WorkSpace)
 
     console.log("this is the workspace id in sidebar component",activeWorkspaceId)
 
