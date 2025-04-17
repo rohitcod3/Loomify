@@ -1,11 +1,13 @@
 import CreateFolders from '@/components/global/create-folders'
 import CreateWorkspace from '@/components/global/create-workspace'
 import Folders from '@/components/global/folders'
+import Videos from '@/components/global/videos'
 import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs'
 import { TabsTrigger } from '@radix-ui/react-tabs'
 import { Video } from 'lucide-react'
 import React from 'react'
-
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
+import { getAllUserVideos } from '@/actions/workspace'
 type Props = {
   params:{workspaceId: string}
 }
@@ -13,7 +15,15 @@ type Props = {
 export default async function Page ({ params }: Props) {
   const awaitedParams = await params;
   const {workspaceId} = awaitedParams;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ['workspace-videos'],
+    queryFn: () => getAllUserVideos(workspaceId), 
+  });
+  
+  
   return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
     <div>
       <Tabs defaultValue="videos" className="mt-6">
         <div className="flex w-full justify-between items-center">
@@ -46,13 +56,16 @@ export default async function Page ({ params }: Props) {
         <section>
         <TabsContent value='videos'>
         <div className='flex items-center gap-4'>
-          <Video fill='#fff' className='opacity-50'/>
-          <p>Videos</p>
+          <Videos
+          workspaceId={workspaceId}
+          videosKey='workspace-videos'
+          />
         </div>
         </TabsContent>
         </section>        
       </Tabs>
     </div>
+    </HydrationBoundary>
   )
 }
 

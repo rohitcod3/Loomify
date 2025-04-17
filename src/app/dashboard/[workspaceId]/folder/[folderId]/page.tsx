@@ -22,6 +22,11 @@ const page = async ({ params }: { params: { folderId: string; workspaceId: strin
     queryFn: () => getFolderInfo(folderId),
   });
 
+  await query.prefetchQuery({
+    queryKey: ['workspace-videos'],
+    queryFn: () => getAllUserVideos(workspaceId)
+  })
+
   return (
     <HydrationBoundary state={dehydrate(query)}>
       <FolderInfo folderId={folderId} />

@@ -2,13 +2,13 @@
 import { getAllUserVideos } from '@/actions/workspace'
 import { useQueryData } from '@/hooks/useQueryData'
 import { VideosProps } from '@/types/index.type'
-import { VideoIcon } from 'lucide-react'
+import { Video, VideoIcon } from 'lucide-react'
 import React from 'react'
 import VideoCard from './video-card'
 import { cn } from '@/lib/utils'
 
 type Props = {
-    folderId: string
+    folderId?: string
     videosKey: string
     workspaceId: string
 }
@@ -16,13 +16,17 @@ type Props = {
 
 
 function Videos({folderId, videosKey, workspaceId}: Props) {
-    const {data: videoData} = useQueryData([videosKey], ()=> getAllUserVideos(folderId))
+    const {data: videoData} = useQueryData([videosKey], ()=> getAllUserVideos(folderId ?? workspaceId))
+
+
+if (!videoData) return <p className='text-red-500'>Error loading videos</p>;
 
     const {status: videosStatus, data: videos} = videoData as VideosProps
   return (
     <div className='flex flex-col gap-4 mt-4'>
         <div className='flex items-center gap-4'>
-            <VideoIcon/>
+          {folderId ?  <VideoIcon/> : <Video fill='#fff' className='opacity-50'/>}
+            
             <h2 className='text-[#BdBdBd] text-xl'>Videos
 
             </h2>
