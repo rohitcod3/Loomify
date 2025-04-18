@@ -178,7 +178,7 @@ export const createWorkspace = async (name: string) => {
                 clerkid:user.id,
             },
             data:{
-                workspace:{
+                WorkSpace:{
                     create:{
                         name,
                         type:'PUBLIC'
