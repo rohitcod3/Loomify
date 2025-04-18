@@ -64,7 +64,7 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
         <p className='text-2xl text-white'>Loomify</p>
         </div>
         <Select  
-        defaultValue="{activeWorkspaceId}"
+        defaultValue={activeWorkspaceId}
         onValueChange={onChangeActiveWorkspace} >
             <SelectTrigger className='mt-4 text-neutral-400 bg-transparent'>
                 <SelectValue placeholder="Select a workspace"></SelectValue>
@@ -131,7 +131,7 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
             }
     <nav className='w-full'>
         <ul className='h-[150px] overflow-auto overflow-x-hidden fade-layer '>
-            {workspace?.WorkSpace?.length > 0 && workspace?.member?.map((item)=> 
+            {workspace?.WorkSpace?.length > 0 && workspace?.WorkSpace?.map((item)=> 
             (
            
             <SidebarItem
