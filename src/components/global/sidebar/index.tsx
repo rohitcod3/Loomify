@@ -130,7 +130,7 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
             )
             }
     <nav className='w-full'>
-        <ul className='h-[150px] overflow-auto overflow-x-hidden fade-layer '>
+        <ul className='h-[150px] overflow-auto overflow-x-hidden '>
             {workspace?.WorkSpace?.length > 0 && workspace?.WorkSpace?.map((item)=> 
             (
            
@@ -151,6 +151,9 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
             ))}
           
         </ul>
+
+        
+        
     </nav>
     <Separator className='w-4/5'/>
     {workspace.subscription?.plan === 'FREE' && <GlobalCard
