@@ -7,6 +7,11 @@ import React from 'react'
 import CopyLink from '../copy-link'
 import RichLink from '../rich-link'
 import { truncateString } from '@/lib/utils'
+import { Download } from 'lucide-react'
+import TabsMenu from '../../tabs'
+import AiTools from '../../ai-tools'
+import VideoTranscirpt from '../../video-transcript'
+import { TabsContent } from '@radix-ui/react-tabs'
 
 type Props = {
     videoId: string
@@ -75,7 +80,7 @@ function VideoPreview({videoId}: Props) {
       </div>
      </div>
      <div className='lg:col-span-1 flex flex-col gap-y-16'>
-      <div className='flex justify-end gap-x-3'>
+      <div className='flex justify-end gap-x-3 justify-content items-center'>
         <CopyLink
         variant="outline"
         className='rounded-full bg-transparent px-10'
@@ -87,6 +92,16 @@ function VideoPreview({videoId}: Props) {
         source={video.source}
         title={video.title as string}
         />
+        <Download className='text-[#4d4c4c] cursor-pointer'/>
+      </div>
+      <div>
+        <TabsMenu defaultValue='Ai tools' triggers={['Ai tools', 'Transcript', 'Activity']}>
+          <AiTools />
+          <VideoTranscirpt transcript={video.description || "No Description"}/>
+          <TabsContent value='activity'>
+           Make Changes to your account here.
+          </TabsContent>
+        </TabsMenu>
       </div>
      </div>
     </div>

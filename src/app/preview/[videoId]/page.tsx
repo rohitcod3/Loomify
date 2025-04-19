@@ -7,7 +7,8 @@ type Props = {params:{
     videoId: string
 }}
 
-const VideoPage = async({params:{videoId}}: Props) => {
+const VideoPage = async(props: Props) => {
+    const {videoId} = props.params;
     const query = new QueryClient();
     await query.prefetchQuery({
         queryKey: ['preview-video'],
