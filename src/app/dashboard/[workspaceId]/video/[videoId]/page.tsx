@@ -3,8 +3,10 @@ import VideoPreview from '@/components/global/videos/preview'
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import React from 'react'
 
-export default async function Page({ params }: { params: any }) {
-  const { videoId } = await params as { videoId: string }
+export default async function Page(props: {
+  params: Promise<{ videoId: string }>
+}) {
+  const { videoId } = await props.params
 
   const queryClient = new QueryClient()
 
