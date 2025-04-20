@@ -4,32 +4,29 @@ import FolderInfo from '@/components/global/folders/folder-info'
 import Videos from '@/components/global/videos'
 import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-type Props = {
-  params: {
-    folderId: string;
-    workspaceId: string;
-  };
-}
-
-export default async function Page({ params }: Props) {
+export default function Page({
+  params,
+}: {
+  params: { folderId: string; workspaceId: string };
+}) {
   const { folderId, workspaceId } = params
 
   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery({
-    queryKey: ['folder-videos', folderId],
-    queryFn: () => getAllUserVideos(folderId),
-  })
-
-  await queryClient.prefetchQuery({
-    queryKey: ['folder-info', folderId],
-    queryFn: () => getFolderInfo(folderId),
-  })
-
-  await queryClient.prefetchQuery({
-    queryKey: ['workspace-videos', workspaceId],
-    queryFn: () => getAllUserVideos(workspaceId),
-  })
+  Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: ['folder-videos', folderId],
+      queryFn: () => getAllUserVideos(folderId),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ['folder-info', folderId],
+      queryFn: () => getFolderInfo(folderId),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ['workspace-videos', workspaceId],
+      queryFn: () => getAllUserVideos(workspaceId),
+    })
+  ])
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
