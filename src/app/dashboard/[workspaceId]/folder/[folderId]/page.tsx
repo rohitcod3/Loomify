@@ -4,14 +4,14 @@ import Videos from '@/components/global/videos'
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import React from 'react'
 
-type Props = {
+type FolderPageParams = {
   params: {
     folderId: string;
     workspaceId: string;
   };
 };
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params }: FolderPageParams) {
   const { folderId, workspaceId } = params;
 
   const query = new QueryClient();
