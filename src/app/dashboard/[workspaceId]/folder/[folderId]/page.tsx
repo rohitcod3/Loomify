@@ -8,7 +8,7 @@ import React from 'react'
 type Props = {params: {folderId:string, workspaceId:string}}
 
 export default async function Page(props : Props)  {
-  const { folderId, workspaceId } =  props.params;
+  const { folderId, workspaceId } = await props.params;
 
   const query = new QueryClient();
 
