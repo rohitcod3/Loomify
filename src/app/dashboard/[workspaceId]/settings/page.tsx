@@ -1,5 +1,5 @@
 'use client'
-import { getFirstView } from '@/actions/user'
+import { enableFirstView, getFirstView } from '@/actions/user'
 import { Switch } from '@radix-ui/react-switch'
 import React, { useEffect, useState } from 'react'
 import { Label } from 'recharts'
