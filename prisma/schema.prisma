@@ -31,6 +31,7 @@ model User {
   notification Notifications[]
   sender       Invite[]        @relation("sender")
   reciever     Invite[]        @relation("reciever")
+  firstView    Boolean         @default(false)
 }
 
 model Subscription {
