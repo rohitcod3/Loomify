@@ -1,20 +1,12 @@
-
 import React from 'react'
 import { getAllUserVideos, getFolderInfo } from '@/actions/workspace'
 import FolderInfo from '@/components/global/folders/folder-info'
 import Videos from '@/components/global/videos'
-import { QueryClient, dehydrate } from '@tanstack/react-query'
-import { HydrationBoundary } from '@tanstack/react-query'
+import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
+export default async function Page({ params }: { params: { folderId: string; workspaceId: string } }) {
+  const { folderId, workspaceId } = params
 
-type Props = {
-  params: {
-    folderId: string
-    workspaceId: string
-  }
-}
-
-async function prefetchQueries(folderId: string, workspaceId: string) {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery({
@@ -32,16 +24,8 @@ async function prefetchQueries(folderId: string, workspaceId: string) {
     queryFn: () => getAllUserVideos(workspaceId),
   })
 
-  return dehydrate(queryClient)
-}
-
-export default async function Page({ params }: Props) {
-  const { folderId, workspaceId } = params
-
-  const dehydratedState = await prefetchQueries(folderId, workspaceId)
-
   return (
-    <HydrationBoundary state={dehydratedState}>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <FolderInfo folderId={folderId} />
       <Videos
         workspaceId={workspaceId}
