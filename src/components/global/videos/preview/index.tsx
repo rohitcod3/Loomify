@@ -28,11 +28,11 @@ function VideoPreview({videoId}: Props) {
       (new Date().getTime() - video.createdAt.getTime()) / (24*60*60*1000)
     )
   return (
-    <div className='grid gird-cols-1 xl:grid-cols-3 p-10 lg:px-20 lg:py-10 overflow-y-auto gap-5'>
+    <div className='grid gird-cols-1 xl:grid-cols-3  lg:py-10 overflow-y-auto gap-5'>
      <div className='flex flex-col lg:col-span-2 gap-y-10'>
       <div>
         <div className='flex gap-x-5 items-start justify-between'>
-          <h2 className='text-white text-4xl font-bold'>{video.title}</h2>
+          <h2 className='text-white text-4xl font-bold'>{video.title} </h2>
 
           {/* {author ? (
             <EditVideo

@@ -19,7 +19,7 @@ function Videos({folderId, videosKey, workspaceId}: Props) {
     const {data: videoData} = useQueryData([videosKey], ()=> getAllUserVideos(folderId ?? workspaceId))
 
 
-if (!videoData) return <p className='text-red-500'>Error loading videos</p>;
+if (!videoData) return <p className='text-red-500'>Loading</p>;
 
     const {status: videosStatus, data: videos} = videoData as VideosProps
   return (

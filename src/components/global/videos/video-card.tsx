@@ -29,7 +29,9 @@ function VideoCard( props: Props) {
   const daysAgo = Math.floor(
     (new Date().getTime() - props.createdAt.getTime()) / (24 * 60 * 60 * 1000)
   );
-  
+
+
+ 
   return (
     <Loader 
     className='bg-[#171717] flex   justify-center items-center border-[1px] border-[#252525] rounded-xl'
@@ -52,8 +54,7 @@ function VideoCard( props: Props) {
     </div>
         <Link
         className='hover:bg-[#252525] transition duration-150 flex flex-col justify-between h-full'
-        href={`/preview/${props.id}`}
-        >
+        href={`/dashboard/${props.workspaceId}/video/${props.id}`}>
           <video 
           controls={false}
           preload="metadata"

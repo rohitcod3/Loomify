@@ -8,6 +8,7 @@ import { Video } from 'lucide-react'
 import React from 'react'
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import { getAllUserVideos } from '@/actions/workspace'
+import Link from 'next/link'
 type Props = {
   params:{workspaceId: string}
 }
@@ -56,10 +57,14 @@ export default async function Page ({ params }: Props) {
         <section>
         <TabsContent value='videos'>
         <div className='flex items-center gap-4'>
+          <Link
+          href={`/dashboard/video/${workspaceId}`}
+          >
           <Videos
           workspaceId={workspaceId}
           videosKey='workspace-videos'
           />
+          </Link>
         </div>
         </TabsContent>
         </section>        
