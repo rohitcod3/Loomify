@@ -1,54 +1,42 @@
-import React from 'react'
+
 import { getAllUserVideos, getFolderInfo } from '@/actions/workspace'
 import FolderInfo from '@/components/global/folders/folder-info'
 import Videos from '@/components/global/videos'
-import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query'
-import { GetServerSideProps } from 'next'
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
+import React from 'react'
 
-interface PageProps {
-  dehydratedState: any;
-  folderId: string;
-  workspaceId: string;
-}
+type Props = {params: {folderId:string, workspaceId:string}}
 
-export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
-  const { folderId, workspaceId } = context.params as { folderId: string; workspaceId: string };
-  
-  const queryClient = new QueryClient();
-  
-  await queryClient.prefetchQuery({
-    queryKey: ['folder-videos', folderId],
+const page = async ({ params }: { params: { folderId: string; workspaceId: string } }) => {
+  const { folderId, workspaceId } = await params;
+
+  const query = new QueryClient();
+
+  await query.prefetchQuery({
+    queryKey: ['folder-videos'],
     queryFn: () => getAllUserVideos(folderId),
   });
-  
-  await queryClient.prefetchQuery({
-    queryKey: ['folder-info', folderId],
+
+  await query.prefetchQuery({
+    queryKey: ['folder-info'],
     queryFn: () => getFolderInfo(folderId),
   });
-  
-  await queryClient.prefetchQuery({
-    queryKey: ['workspace-videos', workspaceId],
-    queryFn: () => getAllUserVideos(workspaceId),
-  });
-  
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      folderId,
-      workspaceId,
-    },
-  };
-};
 
-export default function Page({ dehydratedState, folderId, workspaceId }: PageProps) {
+  await query.prefetchQuery({
+    queryKey: ['workspace-videos'],
+    queryFn: () => getAllUserVideos(workspaceId)
+  })
+
   return (
-    <HydrationBoundary state={dehydratedState}>
+    <HydrationBoundary state={dehydrate(query)}>
       <FolderInfo folderId={folderId} />
-      <Videos
-        workspaceId={workspaceId}
-        folderId={folderId}
-        videosKey="folder-videos"
+      <Videos 
+        workspaceId={workspaceId} 
+        folderId={folderId} 
+        videosKey='folder-videos' 
       />
     </HydrationBoundary>
   );
-}
+};
+
+export default page;
