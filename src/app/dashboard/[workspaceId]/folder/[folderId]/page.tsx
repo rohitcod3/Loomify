@@ -7,8 +7,8 @@ import React from 'react'
 
 type Props = {params: {folderId:string, workspaceId:string}}
 
-const page = async ({ params }: { params: { folderId: string; workspaceId: string } }) => {
-  const { folderId, workspaceId } = await params;
+const Page = async (props : Props) => {
+  const { folderId, workspaceId } =  props.params;
 
   const query = new QueryClient();
 
@@ -39,4 +39,4 @@ const page = async ({ params }: { params: { folderId: string; workspaceId: strin
   );
 };
 
-export default page;
+export default Page;
