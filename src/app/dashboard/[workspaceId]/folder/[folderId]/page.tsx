@@ -4,7 +4,14 @@ import FolderInfo from '@/components/global/folders/folder-info'
 import Videos from '@/components/global/videos'
 import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-export default async function Page({ params }: { params: { folderId: string; workspaceId: string } }) {
+type Props = {
+  params: {
+    folderId: string;
+    workspaceId: string;
+  };
+}
+
+export default async function Page({ params }: Props) {
   const { folderId, workspaceId } = params
 
   const queryClient = new QueryClient()
