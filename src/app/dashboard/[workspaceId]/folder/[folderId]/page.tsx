@@ -5,7 +5,10 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import React from 'react'
 
 export default async function Page({ params }: { params: any }) {
-  const { folderId, workspaceId } = params
+  const { folderId, workspaceId } = await params as {
+    folderId: string
+    workspaceId: string
+  }
 
   const queryClient = new QueryClient()
 
