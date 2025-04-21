@@ -6,7 +6,7 @@ import useZodForm from "./useZodForm"
 import { moveVideoSchema } from "@/components/forms/change-video-location/schema"
 import { isPagesAPIRouteMatch } from "next/dist/server/route-matches/pages-api-route-match"
 
-export const  useMoveVideos = (videoId: string, currentWorkspace: string)=>{
+export const  useçMoveVideos = (videoId: string, currentWorkspace: string)=>{
     const {folders} = useAppSelector((state) => state.FolderReducer)
     const {workspaces} = useAppSelector((state) => state.WorkspaceReducer)
 
@@ -39,8 +39,8 @@ const fetchFolders = async(workspace:string) => {
     setIsFetching(true)
     const folders  = await getWorkspaceFolders(workspace)
     setIsFetching (false)
-    console.log("FOLDERS DOT DATA",folders.data)
-    setIsFolders(folders.data)
+    // console.log("FOLDERS DOT DATA",folders.data)
+    setIsFolders(Array.isArray(folders?.data) ? folders.data : [])
 }
 useEffect(() => {
     fetchFolders(currentWorkspace)
