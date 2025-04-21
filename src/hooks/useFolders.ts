@@ -6,7 +6,7 @@ import useZodForm from "./useZodForm"
 import { moveVideoSchema } from "@/components/forms/change-video-location/schema"
 import { isPagesAPIRouteMatch } from "next/dist/server/route-matches/pages-api-route-match"
 
-export const  useçMoveVideos = (videoId: string, currentWorkspace: string)=>{
+export const  useMoveVideos = (videoId: string, currentWorkspace: string)=>{
     const {folders} = useAppSelector((state) => state.FolderReducer)
     const {workspaces} = useAppSelector((state) => state.WorkspaceReducer)
 
