@@ -9,7 +9,7 @@ type Props = {}
 
 const InfoBar = (props: Props) => {
   // If using our refactored hook for workspace search
-  const { query, onSearchQuery, workspaceResults, isFetching } = useSearch("get-Workspace", "WORKSPACE");
+  const { query, onSearchQuery, results:workspaceResults, isFetching } = useSearch("get-Workspace", "WORKSPACE");
   console.log("workspaceResults in info bar", workspaceResults);
 
   return (
