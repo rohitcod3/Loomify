@@ -60,7 +60,6 @@ export const getWorkspaceFolders = async (workspaceId: string) => {
      if(isFolders && isFolders.length > 0){
         return{status:200, data: isFolders}
      }
-     return{status:404, data: {}}
    } catch (error: any) {
     return{status:500, data:[]}
    }
