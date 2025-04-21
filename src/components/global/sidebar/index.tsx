@@ -45,7 +45,7 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
     const onChangeActiveWorkspace = (value : string) => {
         router.push(`/dashboard/${value}`)
     }
-    const currentWorkspace = workspace?.workspace?.find((s)=> s.id === activeWorkspaceId)
+    const currentWorkspace = workspace?.WorkSpace?.find((s)=> s.id === activeWorkspaceId)
 
      
     if(isFetched && workspace){

@@ -4,7 +4,7 @@ export type WorkspaceProps = {
             plan: 'FREE' | 'PRO'
         
     }| null
-    workspace:{
+    WorkSpace:{
         id:string 
         name: string 
         type: 'PUBLIC' | 'PERSONAL'
