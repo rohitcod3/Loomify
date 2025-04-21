@@ -4,7 +4,7 @@ import React from 'react'
 
 
 
-const DashboardPage = async (props: Props) => {
+const DashboardPage = async () => {
   //authentication
   const auth = await onAuthenticatedUser();
 
