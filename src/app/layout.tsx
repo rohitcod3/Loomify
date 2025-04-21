@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme";
 import ReactQueryProvider from "@/react-query";
 import { ReduxProvider } from "@/redux/provider";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/react"
 const manrope = Manrope({subsets: ['latin']})
 
 export const metadata: Metadata = {
@@ -41,7 +42,7 @@ export default function RootLayout({
             </ReactQueryProvider>
             </ReduxProvider>
           </ThemeProvider>
-       
+          <Analytics />
       </body>
     </html>
     </ClerkProvider>
