@@ -81,12 +81,12 @@ const LandingPageNavBar = (props: Props) => {
             >
               Pricing
             </Link>
-            <Button variant="ghost" className="justify-start px-0 py-2" onClick={() => setIsMenuOpen(false)}>
-              Log In
-            </Button>
-            <Button className="mt-2" onClick={() => setIsMenuOpen(false)}>
-              Sign Up
-            </Button>
+            <Link className="ml-2" href='/auth/sign-in'><Button>
+        <User fill='#000'/>
+        Login</Button></Link>
+        <Link className="ml-2" href='/auth/sign-up'><Button>
+       
+        Sign Up</Button></Link>
           </nav>
         </div>
       )}

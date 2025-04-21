@@ -88,7 +88,9 @@ export default function LoomifyLanding() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button>Get Started for Free</Button>
+               <Link href='/auth/sign-in'>
+               <Button>Get Started for Free</Button>
+               </Link>
                 <Button variant="outline">
                   Watch Demo
                   <ChevronRight className="ml-2 h-4 w-4" />
@@ -425,7 +427,10 @@ export default function LoomifyLanding() {
         </section>
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-gray-500 dark:text-gray-400">© 2024 Loomify. All rights reserved.</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+        Made with <span className="text-pink-500">💻 ❤️</span> by <a href="https://github.com/rohitcod3" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Rohit</a>
+
+        </p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link className="text-xs hover:underline underline-offset-4" href="#">
             Terms of Service
