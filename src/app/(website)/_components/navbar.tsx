@@ -81,10 +81,10 @@ const LandingPageNavBar = (props: Props) => {
             >
               Pricing
             </Link>
-            <Link className="ml-2" href='/auth/sign-in'><Button>
+            <Link className="ml-2 mb-2" href='/auth/sign-in'><Button>
         <User fill='#000'/>
         Login</Button></Link>
-        <Link className="ml-2" href='/auth/sign-up'><Button>
+        <Link className="ml-2 " href='/auth/sign-up'><Button>
        
         Sign Up</Button></Link>
           </nav>
