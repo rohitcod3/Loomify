@@ -30,11 +30,10 @@ const Folders = ({workspaceId}: Props) => {
     const dispatch = useDispatch()
     //getting all the folders
     const {data, isFetched} = useQueryData(["workspace-folders"], () => getWorkspaceFolders(workspaceId))
-
+   
     const {latestVariables} = useMutationDataState(['create-folder'])
 
-    const {status, data: folders} = data as FoldersProps
-
+    const { status, data: folders } = (data || { status: 0, data: [] }) as FoldersProps
     // if(isFetched && folders){
     
     // } 
@@ -54,8 +53,8 @@ const Folders = ({workspaceId}: Props) => {
             <ArrowRight color='#707070'/>
         </div>
     </div>
-    <section className={cn(status !== 200 &&"justify-center", 'flex items-center gap-4 overflow-x-auto w-full')}>
-        {status!== 200 ? (<p className='text-neutral-300'>No folders in workspace</p>) : (
+    <section className={cn(folders.length === 0 &&  "justify-center", 'flex items-center gap-4 overflow-x-auto w-full')}>
+        {folders.length === 0 ? (<p className='text-neutral-300'>No folders in workspace</p>) : (
             <>{latestVariables && latestVariables.status==="pending" && (
                 <Folder1 
                 name={latestVariables.variable.name}
