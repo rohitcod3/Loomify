@@ -48,7 +48,9 @@ const LandingPageNavBar = (props: Props) => {
         <User fill='#000'/>
         Login</Button></Link>
           
-            <Button className="p-4">Sign Up</Button>
+        <Link className="ml-2" href='/auth/sign-up'>
+        <Button className="p-4">Sign Up</Button></Link>
+            
           </div>
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
