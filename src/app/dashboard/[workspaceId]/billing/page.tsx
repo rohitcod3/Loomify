@@ -14,7 +14,7 @@ async function BillingPage({}: Props) {
         <div>
             <h2 className='text-2xl'>${payment?.data?.subscription?.plan === 'PRO' ? '99' : '0'}/Month
             </h2>
-            <p className='text-[#9D9D9D]'>{payment?.data?.subscription?.plan} P</p>
+            <p className='text-[#9D9D9D]'>{payment?.data?.subscription?.plan} </p>
         </div>
     </div>
   )

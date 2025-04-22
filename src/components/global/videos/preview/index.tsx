@@ -12,6 +12,7 @@ import TabsMenu from '../../tabs'
 import AiTools from '../../ai-tools'
 import VideoTranscirpt from '../../video-transcript'
 import { TabsContent } from '@radix-ui/react-tabs'
+import Activities from '../../activites'
 
 type Props = {
     videoId: string
@@ -96,11 +97,18 @@ function VideoPreview({videoId}: Props) {
       </div>
       <div>
         <TabsMenu defaultValue='Ai tools' triggers={['Ai tools', 'Transcript', 'Activity']}>
-          <AiTools />
+          <AiTools
+           videoId={videoId}
+           trial={video.User?.trial!}
+           plan={video.User?.subscription?.plan!}
+          />
           <VideoTranscirpt transcript={video.description || "No Description"}/>
-          <TabsContent value='activity'>
-           Make Changes to your account here.
-          </TabsContent>
+          
+          <Activities
+          videoId={videoId}
+          author={video.User?.firstname as string}
+          />
+     
         </TabsMenu>
       </div>
      </div>
