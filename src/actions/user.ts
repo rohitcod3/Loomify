@@ -200,3 +200,48 @@ export const getNotifications = async() => {
      return {status: 400}
     }
  }
+
+ export const createCommentAndReply = async(
+    userId: string,
+    comment:string,
+    videoId:string,
+    commentId?: string | undefined
+ ) => {
+try{
+
+const reply = await client.comment.update({
+    where:{
+        id:commentId,
+    },
+    data:{
+       reply:{
+        create:{
+            comment,
+            userId,
+            videoId,
+        }
+       } 
+    }
+})
+if(reply){
+    return {status:200, data:'Reply posted'}
+}
+
+const newComment = await client.video.update({
+    where: {
+        id:videoId,
+    },
+    data:{
+        Comment:{
+            create:{
+                comment,
+                userId,
+            }
+        }
+    }
+})
+if(newComment) return {status:200,data:'New comment added'}
+}catch(error){
+return {status:400}
+}
+ }

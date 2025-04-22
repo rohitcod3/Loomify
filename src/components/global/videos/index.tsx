@@ -16,8 +16,9 @@ type Props = {
 
 
 function Videos({folderId, videosKey, workspaceId}: Props) {
+  console.log("videos component loaded")
     const {data: videoData} = useQueryData([videosKey], ()=> getAllUserVideos(folderId ?? workspaceId))
-
+    console.log("videoData:", videoData)
 
 if (!videoData) return <p className='text-red-500'>Loading</p>;
 

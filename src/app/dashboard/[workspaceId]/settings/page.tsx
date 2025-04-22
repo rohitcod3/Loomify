@@ -1,8 +1,8 @@
 'use client'
 import { enableFirstView, getFirstView } from '@/actions/user'
-import { Switch } from '@radix-ui/react-switch'
+import { Switch } from '../../../../components/ui/switch'
 import React, { useEffect, useState } from 'react'
-import { Label } from 'recharts'
+import { Label } from '../../../../components/ui/label'
 import { toast } from 'sonner'
 
 type Props = {}
@@ -31,9 +31,10 @@ const SettingsPage = (props: Props) => {
     <div>
         <h2>Video Sharing Settings</h2>
         <p>
-            Enabling this feature will send you notifications when someone watched your video for the first time. This features can help during client outreach
+            Enabling this feature will send you notifications when someone watched your video for the first time. This features can help during client outreach.
         </p>
-        <Label>
+        <Label className='flex items-center gap-x-3 mt-4 text-md'>
+            Enable First View
             <Switch
             onCheckedChange={switchState}
             disabled={firstView === undefined}
@@ -41,6 +42,8 @@ const SettingsPage = (props: Props) => {
             onClick={() => setFirstView(!firstView)}
             />
         </Label>
+
+     
     </div>
   )
 }
