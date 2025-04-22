@@ -32,7 +32,22 @@ model User {
   sender       Invite[]        @relation("sender")
   reciever     Invite[]        @relation("reciever")
   firstView    Boolean         @default(false)
+  comment      Comment[]
 }
+
+model Comment{
+id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+comment      String
+reply        Comment[]   @relation("reply")
+Comment      Comment?    @relation("reply", fields: [commentId], references: [id])
+commentId    String?      @db.Uuid 
+User         User?      @relation(fields: [userId], references: [id], onDelete:Cascade)
+createdAt   DateTime    @default(now())
+userId      String?      @db.Uuid
+Video       Video?       @relation(fields:[videoId], references: [id], onDelete: Cascade)
+videoId     String?      @db.Uuid
+}
+
 
 model Subscription {
   id         String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
@@ -101,6 +116,7 @@ model Video {
   workSpaceId String?    @db.Uuid
   views       Int        @default(0)
   summery     String?
+  comment    Comment[]
 }
 
 model Member {

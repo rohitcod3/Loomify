@@ -209,22 +209,24 @@ export const getNotifications = async() => {
  ) => {
 try{
 
-const reply = await client.comment.update({
-    where:{
-        id:commentId,
-    },
-    data:{
-       reply:{
-        create:{
-            comment,
-            userId,
-            videoId,
+if(commentId){
+    const reply = await client.comment.update({
+        where:{
+            id:commentId,
+        },
+        data:{
+           reply:{
+            create:{
+                comment,
+                userId,
+                videoId,
+            }
+           } 
         }
-       } 
+    })
+    if(reply){
+        return {status:200, data:'Reply posted'}
     }
-})
-if(reply){
-    return {status:200, data:'Reply posted'}
 }
 
 const newComment = await client.video.update({
@@ -232,7 +234,7 @@ const newComment = await client.video.update({
         id:videoId,
     },
     data:{
-        Comment:{
+        comment:{
             create:{
                 comment,
                 userId,
