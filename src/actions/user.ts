@@ -247,3 +247,46 @@ if(newComment) return {status:200,data:'New comment added'}
 return {status:400}
 }
  }
+
+ export const getUserProfile = async () => {
+    try{
+        const user = await currentUser();
+        if(!user) return {status: 404}
+        const profileIdAndImage = await client.user.findUnique({
+            where:{
+                clerkid: user.id,
+            },
+            select:{
+                image:true,
+                id:true,
+            }
+        })
+        if(profileIdAndImage)return {status:200, data:profileIdAndImage}
+    }catch(error){
+        return {status: 400}
+    }
+ }
+
+ export const getVideoComments = async(id:string) => {
+    try{
+    const comments = await client.comment.findMany({
+        where:{
+            OR: [{videoId: id}, {commentId: id}],
+            commentId:null,
+        },
+        include:{
+            reply:{
+                include:{
+                    User: true,
+                },
+            },
+            User:true,
+        },
+        
+    })
+
+  return {status: 200, data: comments}
+    }catch(error){
+return{status:400}
+    }
+ }
