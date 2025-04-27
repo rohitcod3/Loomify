@@ -15,7 +15,7 @@ onSuccess?: () => void
     onSuccess(data){
         if(onSuccess) onSuccess()
             return toast(data?.status === 200 || data?.status === 201 ? 'Success' : 'Error',{
-        description: data?.data,
+        description: data?.data?.name,
         })
     },
     onSettled: async () =>{
