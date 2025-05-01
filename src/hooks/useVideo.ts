@@ -6,6 +6,7 @@ import { createCommentAndReply, getUserProfile } from "@/actions/user"
 
 export const useVideoComment = (videoId: string, commentId?: string) => {
     const {data} = useQueryData(['user-profile'],getUserProfile )
+    
     const {status, data:user} = data as{
         status: number
         data: {id:string, image:string}

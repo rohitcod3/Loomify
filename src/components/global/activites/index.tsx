@@ -19,7 +19,8 @@ const Activities = ({
   getVideoComments(videoId)
   )
   
-  const comments = (data as VideoCommentProps)?.data || [];
+  const {data:comments} = data as VideoCommentProps
+  console.log(comments, "in activities tab")
 
 
   return (
