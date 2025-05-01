@@ -8,6 +8,7 @@ import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import { User } from 'lucide-react'
 import React from 'react'
 import Loader from '../loader'
+import { inviteMembers } from '@/actions/user'
 
 type Props = {
     workspaceId:string
@@ -18,9 +19,9 @@ function Search({workspaceId}: Props) {
       'USERS'
     )
 
-    // const {mutate,isPending} = useMutationData(["invite-member"], (data: {recieverId:string; email:string}) => {
-
-    // })
+    const {mutate,isPending} = useMutationData(["invite-member"], (data: {recieverId:string; email:string}) => 
+     inviteMembers(workspaceId, data.recieverId,data.email)
+    )
   return (
     
 
