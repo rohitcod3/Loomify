@@ -22,6 +22,7 @@ function Search({workspaceId}: Props) {
     const {mutate,isPending} = useMutationData(["invite-member"], (data: {recieverId:string; email:string}) => 
      inviteMembers(workspaceId, data.recieverId,data.email)
     )
+    console.log("Fetched Users:", onUsers)
   return (
     
 
@@ -74,13 +75,13 @@ function Search({workspaceId}: Props) {
     </div>) : !onUsers? (
       <p className='text-center text-sm text-[#a4a4a4]'>No Users Found</p>
     ) : (
-      <div>{onUsers.map((user) => (
+      <div>{onUsers?.map((user) => (
         <div 
         key={user.id}
         className='flex  gap-x-3 items-center border-2 w-full p-3 rounded-xl '
         > 
         <Avatar >
-          <AvatarImage className="p-2"src={user.image as string}/>
+          <AvatarImage className="p-2 h-10 w-10 rounded-full"src={user.image as string}/>
           <AvatarFallback>
             <User size={30} className="p-1"/>
           </AvatarFallback>
@@ -91,10 +92,12 @@ function Search({workspaceId}: Props) {
           <p className='lowercase text-xs bg-white px-2 rounded-lg text-[#1e1e1e]'>{user.subscription?.plan}</p>
         </div>
         <div className=' flex-1 justify-end flex items-center'>
-          <Button onClick={() => {}} variant={"default"}
+          <Button onClick={() => 
+            mutate({recieverId:user.id, email:user.email})
+          } variant={"default"}
            className="w-5/12 font-bold"
            >
-            <Loader state={false} color='#000'>
+            <Loader state={isPending} color='#000'>
               Invite
             </Loader>
             </Button>
