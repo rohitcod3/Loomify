@@ -48,7 +48,7 @@ export const useSearch = (
       if (type === 'USERS') {
         const users = await searchUsers(searchTerm);
         if (users.status === 200) {
-          setOnUsers(users.data);
+          setOnUsers(users.data ?? []);
           return users.data;
         } else {
           setOnUsers([]);
