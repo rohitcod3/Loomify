@@ -1,5 +1,5 @@
 "use client"
-import { getPreviewVideo } from '@/actions/workspace'
+import { getPreviewVideo, sendEmailForFirstView } from '@/actions/workspace'
 import { useQueryData } from '@/hooks/useQueryData'
 import { VideoProps } from '@/types/index.type'
 import { useRouter } from 'next/navigation'
@@ -21,6 +21,8 @@ type Props = {
 function VideoPreview({videoId}: Props) {
   const router = useRouter()
     const {data} = useQueryData(['preview-video'],()=> getPreviewVideo(videoId))
+
+    const notifyFirstView = async () => await sendEmailForFirstView(videoId)
 
     const {data:video, status, author} = data as VideoProps
     if(status !== 200) router.push('/')
