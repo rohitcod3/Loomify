@@ -383,7 +383,7 @@ try{
         }
     })
     if(video && video.views == 0){
-        await.client.video.update({
+        await client.video.update({
             where:{
                 id:videoId,
             },
@@ -393,8 +393,8 @@ try{
      } )
     }
     if(!video)return
-    
-}catch(error){
 
+}catch(error){
+console.log(error)
 }
 }
