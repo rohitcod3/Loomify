@@ -160,9 +160,7 @@ const Sidebar = ({activeWorkspaceId}: Props) => {
     title="Upgrade to pro"
     description='Unlock AI features like transcription, AI summary, and more.'
     footer={
-        <Button className='text-sm'>
-        <Loader color='#000' state={false}>Upgrade</Loader>
-    </Button>
+       <PaymentButton/>
     }
     >
       
