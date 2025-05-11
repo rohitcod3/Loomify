@@ -8,10 +8,13 @@ type Props = {}
 function  PaymentButton({}: Props) {
     const {onSubscribe, isProcessing} = useSubscription()
   return (
-    <Button className='text-sm w-full'>
+    <Button 
+    className='text-sm w-full'
+    onClick={onSubscribe}
+    >
       <Loader 
       color='#000'
-      state={false}
+      state={isProcessing}
       >
        Upgrade
       </Loader> 
