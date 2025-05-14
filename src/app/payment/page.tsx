@@ -6,14 +6,17 @@ import React from 'react'
 //     searchParams:{session_id?:string;cancel?:boolean}
 // }
 
-export default async function page({params}: {params:any}) {
+export default async function page({searchParams}: {searchParams:any}) {
 
-    const {session_id, cancel} = await params as {session_id:string, cancel:string}
+    const {session_id, cancel} = await searchParams as {session_id:string, cancel:string}
+
+    if(session_id){
 
     const customer = await completeSubscription(session_id)
     if(customer.status === 200){
         return redirect('/auth/callback')
     }
+   }
  if(cancel){
     return(
         <div className='flex flex-col justify-center items-center h-screen w-full'>
