@@ -1,23 +1,54 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from "next/server";
+
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000'];
+
+const corsOptions = {
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
 
 const isProtectedRoute = createRouteMatcher([
-  '/dashboard(.*)', 
-  '/api/payment',
+  '/dashboard(.*)',
   '/payment(.*)',
 ]);
 
-export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) {
-    // Await the auth object
-    const { sessionId } = await auth();
-    // Check if sessionId exists
-    if (!sessionId) {
-      // Return a response or redirect as needed
-      return new Response("Unauthorized", { status: 401 });
-    }
+export default clerkMiddleware(async (auth, req: NextRequest) => {
+  const origin = req.headers.get('origin') ?? '';
+  const isAllowedOrigin = allowedOrigins.includes(origin);
+
+
+  if (req.method === 'OPTIONS') {
+    const preflightHeaders = {
+      ...(isAllowedOrigin && { 'Access-Control-Allow-Origin': origin }),
+      ...corsOptions,
+    };
+
+    return new NextResponse(null, {
+      status: 204,
+      headers: preflightHeaders,
+    });
   }
-});
+
+  if (isProtectedRoute(req)) {
+    auth.protect(); /
+  }
   
+
+  
+  const response = NextResponse.next();
+
+  if (isAllowedOrigin) {
+    response.headers.set('Access-Control-Allow-Origin', origin);
+  }
+
+  Object.entries(corsOptions).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
+
+  return response;
+});
+
 export const config = {
   matcher: [
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
