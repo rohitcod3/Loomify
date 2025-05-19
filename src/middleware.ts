@@ -17,7 +17,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   const origin = req.headers.get('origin') ?? '';
   const isAllowedOrigin = allowedOrigins.includes(origin);
 
-
+  // Handle CORS preflight request
   if (req.method === 'OPTIONS') {
     const preflightHeaders = {
       ...(isAllowedOrigin && { 'Access-Control-Allow-Origin': origin }),
@@ -31,11 +31,13 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   }
 
   if (isProtectedRoute(req)) {
-    auth.protect(); /
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.redirect(new URL('/sign-in', req.url));
+    }
   }
   
 
-  
   const response = NextResponse.next();
 
   if (isAllowedOrigin) {
