@@ -24,10 +24,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       ...corsOptions,
     };
 
-    return new NextResponse(null, {
-      status: 204,
-      headers: preflightHeaders,
-    });
+    return NextResponse.json({}, {headers:preflightHeaders})
   }
 
   if (isProtectedRoute(req)) {
@@ -36,7 +33,12 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.redirect(new URL('/sign-in', req.url));
     }
   }
+
   
+  //  if (isProtectedRoute(req)) {
+  //   auth().protect();
+    
+  // }
 
   const response = NextResponse.next();
 
