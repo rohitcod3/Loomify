@@ -3,7 +3,7 @@ import { clerkClient } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params }: { params: any }) {
-  const { id } = params as { id: string };
+  const { id } = await params as { id: string };
 
   const headers = {
     "Access-Control-Allow-Origin": "http://localhost:5174",
